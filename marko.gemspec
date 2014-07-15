@@ -10,7 +10,7 @@ Gem::Specification.new do |spec|
   spec.email         = ["areese@engineyard.com"]
   spec.summary       = %q{Marketo REST API client}
   spec.description   = %q{Marketo REST API client}
-  spec.homepage      = ""
+  spec.homepage      = "https://github.com/adamreese/marko"
   spec.license       = "MIT"
 
   spec.files         = `git ls-files -z`.split("\x0")
