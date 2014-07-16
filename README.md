@@ -1,5 +1,7 @@
 # Marko
 
+[![Build Status](https://travis-ci.org/adamreese/marko.svg?branch=master)](https://travis-ci.org/adamreese/marko)
+
 Marketo REST API client with mock support
 
 This gem is still in early development.  Not for production use.
