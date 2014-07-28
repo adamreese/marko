@@ -10,20 +10,13 @@ class Marko::Client
 
   class Mock
     def get_campaigns(params={})
+      campaigns = self.data[:campaigns].values
+
       response(
         :body     => {
           "requestId" => SecureRandom.hex,
           "sucess" => true,
-          "result" => [
-            {
-              "id" => 60,
-              "name" => "Cammpaign Name",
-              "description" => "desc",
-              "programName" => "ProgramName",
-              "createdAt" => "2014-03-26T17:29:14+0000",
-              "updatedAt" => "2014-03-26T18:04:10+0000"
-            }
-          ],
+          "result" => campaigns,
         },
         :status   => 200
       )

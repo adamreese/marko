@@ -81,10 +81,34 @@ class Marko::Client < Cistern::Service
   class Mock
 
     def self.data
-      @data ||= {
-        :leads => {},
-        :lists => {}
-      }
+      @data ||= begin
+                  list_id      = marketo_id
+                  campaign_id  = marketo_id
+
+                  list = {
+                    "id"             => list_id,
+                    "name"           => "Mobile First No Shows",
+                    "program_name"   => "EVNT-TRD-13-12-04-Mobile-First-Mobile-Only",
+                    "workspace_name" => "Default",
+                    "created_at"     => "2013-12-19T23:56:39+0000",
+                    "updated_at"     => "2013-12-20T00:02:00+0000"
+                  }
+
+                  campaign = {
+                    "id"          => campaign_id,
+                    "name"        => "Cammpaign Name",
+                    "description" => "desc",
+                    "programName" => "ProgramName",
+                    "createdAt"   => "2014-03-26T17:29:14+0000",
+                    "updatedAt"   => "2014-03-26T18:04:10+0000"
+                  }
+
+                  {
+                    :leads => {},
+                    :lists => {list_id => list},
+                    :campaigns => {campaign_id => campaign},
+                  }
+                end
     end
 
     def data
