@@ -1,6 +1,7 @@
 class Marko::Client < Cistern::Service
 
   model_path "marko/models"
+  collection_path "marko/collections"
   request_path "marko/requests"
 
   model :campaign
