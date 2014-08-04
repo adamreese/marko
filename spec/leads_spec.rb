@@ -16,4 +16,10 @@ describe "marko/leads" do
     expect(fetched).to eq(lead)
     expect(fetched.email).to eq("rspec-test@example.com")
   end
+
+  it "should get leads by filter type" do
+    fetched = client.leads.all(email: "rspec-test@example.com")
+
+    expect(fetched.last).to eq(lead)
+  end
 end

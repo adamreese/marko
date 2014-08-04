@@ -1,7 +1,12 @@
 class Marko::Client
   class Real
     def get_leads(params={})
-      path = params[:path] || "/leads.json"
+      path = params.delete(:path) || "/leads.json"
+
+      params = {
+        "filterType" => params.keys.first,
+        "filterValues" => params.values.first.to_a.join(",")
+      } || {}
 
       request(
         :path   => path,
@@ -12,7 +17,13 @@ class Marko::Client
 
   class Mock
     def get_leads(params={})
-      leads = self.data[:leads].values
+      path = params.delete(:path) || "/leads.json"
+
+      if filter_type = params.keys.first.to_s
+        leads = self.data[:leads].values.find_all{|i| i[filter_type] == params.values.first}
+      else
+        leads = self.data[:leads].values
+      end
 
       response(
         :body     => {
