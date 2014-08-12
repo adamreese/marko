@@ -1,0 +1,2 @@
+* paged collections
+* readme examples
