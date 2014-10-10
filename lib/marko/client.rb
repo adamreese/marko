@@ -90,6 +90,11 @@ class Marko::Client < Cistern::Service
   end # Real
 
   class Mock
+    def initialize(options={})
+      @url         = options[:url] || ENV["MARKETO_URL"] || Marko.defaults[:url]
+      @api_version = options[:version] || "v1"
+      @logger      = options[:logger] || Logger.new(nil)
+    end
 
     def self.data
       @data ||= begin
