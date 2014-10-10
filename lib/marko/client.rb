@@ -25,6 +25,10 @@ class Marko::Client < Cistern::Service
   request :get_leads
   request :update_lead
 
+  model :lead_change
+  collection :lead_changes
+  request :get_lead_changes
+
   recognizes :client_id, :client_secret, :url, :logger, :token
 
   class Real
@@ -102,8 +106,9 @@ class Marko::Client < Cistern::Service
 
     def self.data
       @data ||= begin
-                  list_id      = marketo_id
-                  campaign_id  = marketo_id
+                  list_id         = marketo_id
+                  campaign_id     = marketo_id
+                  lead_change_id  = marketo_id
 
                   list = {
                     "id"             => list_id,
@@ -123,10 +128,40 @@ class Marko::Client < Cistern::Service
                     "updatedAt"   => "2014-03-26T18:04:10+0000"
                   }
 
+                  lead_change = {
+                    "id"             => lead_change_id,
+                    "leadId"         => "775",
+                    "activityDate"   => "2014-09-17T22:31:49+0000",
+                    "activityTypeId" => "13",
+                    "fields" => [
+                      {
+                        "id"       => "48",
+                        "name"     => "firstName",
+                        "newValue" => "FirstName_6176",
+                        "oldValue" => "FirstName_4914"
+                      }
+                    ],
+                    # "attributes" => [
+                      # {
+                        # "name"  => "Reason",
+                        # "value" => "Web service API"
+                      # },
+                      # {
+                        # "name"  => "Source",
+                        # "value" => "Web service API"
+                      # },
+                      # {
+                        # "name"  => "Lead ID",
+                        # "value" => "775"
+                      # }
+                    # ]
+                  }
+
                   {
-                    :leads => {},
-                    :lists => {list_id => list},
-                    :campaigns => {campaign_id => campaign},
+                    :leads        => {},
+                    :lists        => {list_id => list},
+                    :campaigns    => {campaign_id => campaign},
+                    :lead_changes => {lead_change_id => lead_change},
                   }
                 end
     end
