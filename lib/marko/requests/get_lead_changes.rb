@@ -5,7 +5,7 @@ class Marko::Client
       request(
         :path   => '/activities/leadchanges.json',
         :params => params
-      )
+      ).tap { |r| r.body['result'].map { |result| Marko.rename_attributes(result) } }
     end
   end
 

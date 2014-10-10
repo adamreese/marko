@@ -141,20 +141,20 @@ class Marko::Client < Cistern::Service
                         "oldValue" => "FirstName_4914"
                       }
                     ],
-                    # "attributes" => [
-                      # {
-                        # "name"  => "Reason",
-                        # "value" => "Web service API"
-                      # },
-                      # {
-                        # "name"  => "Source",
-                        # "value" => "Web service API"
-                      # },
-                      # {
-                        # "name"  => "Lead ID",
-                        # "value" => "775"
-                      # }
-                    # ]
+                    "attrs" => [
+                      {
+                        "name"  => "Reason",
+                        "value" => "Web service API"
+                      },
+                      {
+                        "name"  => "Source",
+                        "value" => "Web service API"
+                      },
+                      {
+                        "name"  => "Lead ID",
+                        "value" => "775"
+                      }
+                    ]
                   }
 
                   {
