@@ -4,6 +4,10 @@ class Marko::Client < Cistern::Service
   collection_path "marko/collections"
   request_path "marko/requests"
 
+  model :activity_type
+  collection :activity_types
+  request :get_activity_types
+
   model :campaign
   collection :campaigns
   request :get_campaign
