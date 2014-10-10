@@ -60,12 +60,22 @@ class Marko::Client < Cistern::Service
       headers = options[:headers] || {"Accept" => "application/json"}
       headers.merge!("Content-Type" => "application/json") if !body && !params.empty?
 
-      @connection.send(method) do |req|
+      response = @connection.send(method) do |req|
         req.url(url)
         req.headers.merge!(headers)
         req.params.merge!(params)
         req.body = body
       end
+
+      Marko::Response.new(
+        :status  => response.status,
+        :headers => response.headers,
+        :body    => response.body,
+        :request => {
+          :method => method,
+          :url    => url,
+        }
+      ).raise!
     end
 
     def authenticate!(options={})
@@ -126,13 +136,23 @@ class Marko::Client < Cistern::Service
     end
 
     def response(options={})
+      method  = (options[:method] || :get).to_s.to_sym
+      url     = options[:url] || File.join(@url.to_s, "rest", @api_version, options[:path] || "/")
       status  = options[:status] || 200
       body    = options[:body]
       headers = {
         "Content-Type"  => "application/json; charset=utf-8"
       }.merge(options[:headers] || {})
 
-      Marko::Response.new(status, headers, body).raise!
+      Marko::Response.new(
+        :status  => status,
+        :headers => headers,
+        :body    => body,
+        :request => {
+          :method => method,
+          :url    => url,
+        }
+      ).raise!
     end
   end # Mock
 end

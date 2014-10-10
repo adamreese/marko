@@ -28,4 +28,8 @@ class Marko::Client::Leads < Cistern::Collection
   def get(id)
     self.new(self.connection.get_lead(id).body["result"].first)
   end
+
+  def describe
+    self.new(self.connection.describe_leads.body["result"].first)
+  end
 end
