@@ -1,11 +1,11 @@
 class Marko::Client::Lead < Marko::Model
   identity :id
 
-  attribute :email,         aliases: "email"
-  attribute :first_name,    aliases: "firstName"
-  attribute :last_name,     aliases: "lastName"
-  attribute :created_at,    aliases: "createdAt",   type: :datetime
-  attribute :update_at,     aliases: "updatedAt",   type: :datetime
+  attribute :email,         type: :string
+  attribute :first_name,    type: :string,   aliases: "firstName"
+  attribute :last_name,     type: :string,   aliases: "lastName"
+  attribute :created_at,    type: :datetime, aliases: "createdAt"
+  attribute :update_at,     type: :datetime, aliases: "updatedAt"
 
   def save
     response = if new_record?

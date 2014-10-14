@@ -1,12 +1,12 @@
 class Marko::Client::Leads < Cistern::Collection
   model Marko::Client::Lead
 
-  attribute :action,           aliases: "action"
-  attribute :batch_size,       aliases: "batchSize"
-  attribute :lookup_field,     aliases: "lookupField"
-  attribute :next_page_token,  aliases: "nextPageToken"
-  attribute :filter_type,      aliases: "filterType"
-  attribute :filter_values,    aliases: "filterValues"
+  attribute :action,           type: :string
+  attribute :batch_size,       type: :integer, aliases: "batchSize"
+  attribute :lookup_field,     type: :string,  aliases: "lookupField"
+  attribute :next_page_token,  type: :string,  aliases: "nextPageToken"
+  attribute :filter_type,      type: :string,  aliases: "filterType"
+  attribute :filter_values,    type: :array,   aliases: "filterValues"
 
   def all(params={})
 

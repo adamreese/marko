@@ -25,7 +25,7 @@ class Marko::Client
 
   class Mock
     def get_leads(params={})
-      if filter_type = params.keys.first.to_s
+      if filter_type = params.keys.first.to_sym
         leads = self.data[:leads].values.find_all{|i| i[filter_type] == params.values.first}
       else
         leads = self.data[:leads].values
