@@ -4,6 +4,10 @@ class Marko::Client < Cistern::Service
   collection_path "marko/collections"
   request_path "marko/requests"
 
+  model :activity
+  collection :activities
+  request :get_activities
+
   model :activity_type
   collection :activity_types
   request :get_activity_types
@@ -109,6 +113,7 @@ class Marko::Client < Cistern::Service
                   list_id         = marketo_id
                   campaign_id     = marketo_id
                   lead_change_id  = marketo_id
+                  activity_id     = marketo_id
 
                   list = {
                     "id"             => list_id,
@@ -157,11 +162,31 @@ class Marko::Client < Cistern::Service
                     ]
                   }
 
+                  activity = {
+                    "id"                      => activity_id,
+                    "leadId"                  => '6',
+                    "activityDate"            => "2013-09-26T06:56:35+0000",
+                    "activityTypeId"          => "12",
+                    "primaryAttributeValueId" => "6",
+                    "primaryAttributeValue"   => "Owyliphys Iledil",
+                    "attributes" => [
+                      {
+                        "name"  => "Source Type",
+                        "value" => "Web page visit"
+                      },
+                      {
+                        "name"  => "Source Info",
+                        "value" => "http://search.yahoo.com/search?p=train+cappuccino+army"
+                      }
+                    ]
+                  }
+
                   {
                     :leads        => {},
                     :lists        => {list_id => list},
                     :campaigns    => {campaign_id => campaign},
                     :lead_changes => {lead_change_id => lead_change},
+                    :activities   => {activity_id => activity},
                   }
                 end
     end
