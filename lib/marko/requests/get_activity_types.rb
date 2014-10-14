@@ -22,7 +22,7 @@ class Marko::Client
                 "name"     => "Webpage ID",
                 "dataType" => "integer"
               },
-              "attrs" => [
+              "attributes" => [
                 {
                   "name" => "Client IP Address",
                   "dataType" => "string"

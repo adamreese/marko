@@ -9,6 +9,6 @@ describe "marko/activity_types" do
   end
 
   it "should format activity_attributes" do
-    expect(activity_types.first.activity_attributes).not_to be_empty
+    expect(activity_types.first.activity_attributes).to be_an(Array)
   end
 end

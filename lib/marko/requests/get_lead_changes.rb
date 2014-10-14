@@ -2,10 +2,12 @@ class Marko::Client
   class Real
     def get_lead_changes(params={})
 
+      params.fetch(:next_page_token, get_paging_token)
+
       request(
         :path   => '/activities/leadchanges.json',
         :params => params
-      ).tap { |r| r.body['result'].map { |result| Marko.rename_attributes(result) } }
+      )
     end
   end
 

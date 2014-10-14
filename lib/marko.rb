@@ -21,9 +21,4 @@ module Marko
                     {}
                   end
   end
-
-  def self.rename_attributes(collection)
-    collection['attrs'] = collection.delete('attributes') if collection.include?('attributes')
-    collection
-  end
 end
