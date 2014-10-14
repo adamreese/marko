@@ -1,8 +1,6 @@
 #!/usr/bin/env ruby
 
 require 'marko'
-require 'pry'
+require 'marko/cli'
 
-client = Marko::Client.new(logger: Logger.new(STDOUT))
-
-pry
+Marko::CLI.start
