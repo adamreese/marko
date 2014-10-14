@@ -33,16 +33,26 @@ class Marko::Client < Cistern::Service
   collection :lead_changes
   request :get_lead_changes
 
+  request :get_paging_token
+
   recognizes :client_id, :client_secret, :url, :logger, :token
 
-  class Real
-    def initialize(options={})
+  module Shared
+    attr_reader :salesforce_version
 
+    def setup(options)
       @url         = options[:url] || ENV["MARKETO_URL"] || Marko.defaults[:url]
       @api_version = options[:version] || "v1"
       @logger      = options[:logger] || Logger.new(nil)
-      @token       = options[:token] || ENV["MARKETO_TOKEN"] || authenticate!
+      @token       = options[:token] || ENV["MARKETO_TOKEN"]
+    end
+  end
 
+  class Real
+    include Shared
+
+    def initialize(options={})
+      setup(options)
     end
 
     def setup_connection
@@ -63,10 +73,11 @@ class Marko::Client < Cistern::Service
     end
 
     def request(options={})
+      authenticate! unless @token
       setup_connection unless @connection
 
       method  = options[:method] || :get
-      url     = options[:url] || URI.parse(File.join(@url.to_s, "rest", @api_version, options[:path]))
+      url     = Addressable::URI.parse(options[:url] || File.join(@url.to_s, 'rest', @api_version, options[:path] || "/"))
       params  = options[:params] || {}
       body    = options[:body]
       headers = options[:headers] || {"Accept" => "application/json"}
@@ -102,10 +113,10 @@ class Marko::Client < Cistern::Service
   end # Real
 
   class Mock
+    include Shared
+
     def initialize(options={})
-      @url         = options[:url] || ENV["MARKETO_URL"] || Marko.defaults[:url]
-      @api_version = options[:version] || "v1"
-      @logger      = options[:logger] || Logger.new(nil)
+      setup(options)
     end
 
     def self.data
